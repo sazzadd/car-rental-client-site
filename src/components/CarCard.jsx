@@ -1,59 +1,85 @@
 import React from "react";
 import {
-  FaCalendarAlt,
+  FaArrowRight,
   FaCarSide,
-  FaCheckCircle,
-  FaDollarSign,
+  FaCog,
+  FaSuitcaseRolling,
+  FaUserFriends,
 } from "react-icons/fa";
 
-const CarCard = () => {
-  const car = {
-    image: "https://via.placeholder.com/300", // Replace with your car image URL
-    model: "Toyota Camry 2023",
-    price: 45,
-    availability: true,
-    datePosted: "2 days ago",
-  };
+const CarCard = ({ car }) => {
+  const {
+    carModel,
+    dailyRentalPrice,
+    availability,
+    vehicleRegistrationNumber,
+    features,
+    description,
+    bookingCount,
+    image,
+    location,
+    category,
+    passenger,
+    doors,
+    bags,
+    transmission,
+  } = car;
 
   return (
-    <div className="">
-      <div className="">
-        {/* Single Card */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden border hover:shadow-2xl transition-all duration-300">
-          <img
-            src={car.image}
-            alt={car.model}
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-bold text-gray-800 flex items-center">
-              <FaCarSide className="text-blue-500 mr-2" /> {car.model}
-            </h2>
-            <p className="text-gray-600 flex items-center mt-2">
-              <FaDollarSign className="text-green-500 mr-2" />
-              Daily Price: ${car.price}/day
-            </p>
-            <p
-              className={`flex items-center mt-2 ${
-                car.availability ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              <FaCheckCircle className="mr-2" />
-              {car.availability ? "Available" : "Not Available"}
-            </p>
-            <p className="text-gray-500 flex items-center mt-2">
-              <FaCalendarAlt className="mr-2" />
-              Posted: {car.datePosted}
-            </p>
+    <div className="bg-white border rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:scale-105 transform transition-all duration-300">
+      {/* Car Image */}
+      <img src={image} alt={carModel} className="w-full h-40 object-cover" />
+
+      <div className="p-4">
+        {/* Availability Badge */}
+        <span
+          className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+            availability
+              ? "bg-green-100 text-green-700"
+              : "bg-red-100 text-red-700"
+          }`}
+        >
+          {availability ? "Available" : "Not Available"}
+        </span>
+
+        {/* Category */}
+        <span className="block mt-2 text-sm font-medium bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+          {category}
+        </span>
+
+        {/* Model */}
+        <h3 className="text-lg font-semibold text-gray-800 mt-2">
+          {carModel}
+        </h3>
+
+        {/* Details */}
+        <div className="flex items-center justify-between text-gray-600 text-sm mt-4">
+          <div className="flex items-center gap-1">
+            <FaUserFriends /> {passenger} Passenger
           </div>
-          <div className="p-4 bg-gray-50">
-            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all">
-              Rent Now
-            </button>
+          <div className="flex items-center gap-1">
+            <FaCarSide /> {doors} Door
           </div>
         </div>
-        {/* Duplicate the card for demo purposes */}
-        {/* You can loop over an array of cars in a real implementation */}
+        <div className="flex items-center justify-between text-gray-600 text-sm mt-2">
+          <div className="flex items-center gap-1">
+            <FaSuitcaseRolling /> {bags}
+          </div>
+          <div className="flex items-center gap-1">
+            <FaCog /> {transmission}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="p-4 border-t flex items-center justify-between">
+        <span className="text-lg font-bold text-gray-800">
+          ${dailyRentalPrice}/day
+        </span>
+        <button className="bg-[#ff4c30f5] flex items-center text-white p-2 rounded-full hover:bg-orange-600 transition">
+          <span className="mr-1">Book Now</span>
+          <FaArrowRight />
+        </button>
       </div>
     </div>
   );
