@@ -5,6 +5,7 @@ import Home from "../Pages/Home";
 import AuthLayout from "./../Auth/AuthLayout";
 import Login from "./../Auth/Login";
 import Register from "./../Auth/Register";
+import CarDetails from "../Pages/CarDetails";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/add-car", // /auth/login path
         element: <AddCar></AddCar>,
+      },
+      {
+        path: "/carDetails/:id", // /auth/login path
+        element: <CarDetails></CarDetails>,
       },
     ],
   },
