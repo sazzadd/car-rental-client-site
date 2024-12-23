@@ -33,7 +33,7 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/my-cars"
+          to="/my-posted-cars"
           className="hover:text-[#FF4C30] transition-colors duration-300"
         >
           My Cars
