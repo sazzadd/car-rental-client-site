@@ -23,7 +23,7 @@ const CarDetails = () => {
     vehicleRegistrationNumber,
     features = [],
     description,
-    image,
+    imageUrl,
     location,
   } = car || {};
 
@@ -33,8 +33,8 @@ const CarDetails = () => {
         {/* Left Section: Car Image */}
         <div className="w-full md:w-1/2 flex-shrink-0 hover:scale-105 transform transition-all duration-300">
           <img
-            src={image}
-            alt={carModel}
+            src={imageUrl}
+            // alt={carModel}
             className="rounded-lg shadow-lg w-full h-auto object-cover"
           />
         </div>

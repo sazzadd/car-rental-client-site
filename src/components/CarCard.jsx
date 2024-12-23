@@ -12,7 +12,7 @@ const CarCard = ({ car }) => {
     features,
     description,
     bookingCount,
-    image,
+    imageUrl,
     location,
   } = car;
 
@@ -21,7 +21,7 @@ const CarCard = ({ car }) => {
       {/* Car Image with Price Badge */}
       <div className="relative">
         <img
-          src="https://i.ibb.co/MSfzd1s/11.jpg" // Updated with your image URL
+          src={imageUrl} // Updated with your image URL
           alt="Car"
           className="w-full h-48 object-cover"
         />
