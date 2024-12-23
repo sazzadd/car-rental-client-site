@@ -1,5 +1,5 @@
 import React from "react";
-import { FaCar, FaGasPump, FaUserFriends } from "react-icons/fa";
+import { FaCar, FaCheckCircle, FaGasPump, FaUserFriends } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
@@ -34,7 +34,20 @@ const CarCard = ({ car }) => {
       <div className="p-5">
         {/* Rating */}
         <div className="flex items-center mb-2">
-          <span className="text-yellow-500 text-lg">★ ★ ★ ★ ★</span>
+          <div className="flex items-center text-sm mb-6">
+            <FaCheckCircle
+              className={`inline-block mr-2 ${
+                availability ? "text-green-500" : "text-red-500"
+              }`}
+            />
+            <span
+              className={`text-xl font-semibold ${
+                availability ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {availability ? "Available" : "Not Available"}
+            </span>
+          </div>
         </div>
 
         {/* Car Title */}
