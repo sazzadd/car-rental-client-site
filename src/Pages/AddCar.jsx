@@ -2,6 +2,19 @@ import React from "react";
 import { FaCar, FaDollarSign, FaMapMarkerAlt } from "react-icons/fa";
 
 const AddCar = () => {
+  const handleAddCarSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const carData = Object.fromEntries(formData.entries());
+
+    const { features, ...newCar } = carData;
+    // console.log(features);
+    const arr = features.split("\n");
+
+    newCar.features = arr;
+    // // console.log(carData);
+    console.log(newCar);
+  };
   return (
     <div
       className="py-12 bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen flex items-center justify-center"
@@ -16,7 +29,7 @@ const AddCar = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Add Car for Rental
         </h2>
-        <form className="space-y-6">
+        <form onSubmit={handleAddCarSubmit} className="space-y-6">
           {/* Car Model */}
           <div className="form-control">
             <label className="label font-medium text-gray-600">
@@ -53,6 +66,7 @@ const AddCar = () => {
             </label>
             <select
               name="availability"
+              id="availability"
               className="select select-bordered w-full"
               required
             >
@@ -76,19 +90,16 @@ const AddCar = () => {
           </div>
 
           {/* Features */}
+
           <div className="form-control">
-            <label className="label font-medium text-gray-600">
-              Features (e.g., GPS, AC, etc.)
-            </label>
-            <input
-              type="text"
+            <label className="label font-medium text-gray-600">Features</label>
+            <textarea
               name="features"
-              placeholder="Enter features (comma separated)"
-              className="input input-bordered w-full"
+              placeholder="Give each feature as a new line."
+              className="textarea textarea-bordered w-full"
               required
             />
           </div>
-
           {/* Description */}
           <div className="form-control">
             <label className="label font-medium text-gray-600">
