@@ -9,7 +9,7 @@ const CarDetails = () => {
     fetchJobData();
   }, [id]);
   const fetchJobData = async () => {
-    const { data } = await axios.get(`http://localhost:5000/car/${id}`);
+    const { data } = await axios.get(`http://localhost:5000/cars/${id}`);
     setCar(data);
     setStartDate(new Date(data.deadline));
   };
