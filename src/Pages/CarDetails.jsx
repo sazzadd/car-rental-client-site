@@ -80,9 +80,7 @@ const CarDetails = () => {
 
           {/* Action Buttons */}
           <div className="flex gap-4">
-            <button className="bg-white text-gray-800 border border-gray-300 px-6 py-2 rounded-lg font-semibold shadow-sm transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
-              Mark as Read
-            </button>
+         
             <button className="bg-[#FF4C30] text-white px-6 py-2 rounded-lg font-semibold shadow-sm transition-all duration-300 hover:bg-[#FF8560]">
               Add to Wishlist
             </button>
