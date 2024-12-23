@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaCar, FaDollarSign, FaMapMarkerAlt } from "react-icons/fa";
+import { AuthContext } from "./../Provider/AuthProvider";
 
 const AddCar = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user.email);
   const handleAddCarSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const carData = Object.fromEntries(formData.entries());
 
     const { features, ...newCar } = carData;
-    // console.log(features);
-    const arr = features.split("\n");
 
+    // Split features into an array
+    const arr = features.split("\n");
     newCar.features = arr;
-    // // console.log(carData);
+
+    // submission date and time
+    const now = new Date();
+    newCar.submissionDate = now.toLocaleDateString();
+    newCar.submissionTime = now.toLocaleTimeString();
+    newCar.hrEmail = user.email;
+    newCar.hrName = user.displayName;
+
     console.log(newCar);
   };
+
   return (
     <div
       className="py-12 bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen flex items-center justify-center"
@@ -22,7 +33,7 @@ const AddCar = () => {
         backgroundImage: "url('https://i.ibb.co/ZgHQN7x/banner-image-1.png')",
         backgroundPosition: "right bottom",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "contain",
+        backgroundSilze: "contain",
       }}
     >
       <div className="w-full max-w-4xl bg-white bg-opacity-50 shadow-lg rounded-lg p-8">
