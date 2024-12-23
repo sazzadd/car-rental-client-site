@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCar, FaGasPump, FaUserFriends } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
   const {
@@ -37,9 +38,7 @@ const CarCard = ({ car }) => {
         </div>
 
         {/* Car Title */}
-        <h2 className="text-xl font-semibold text-gray-800">
-          Mitsubishi Portan
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-800">{carModel}</h2>
 
         {/* Description */}
         <p className="text-gray-500 text-sm mt-2">
@@ -66,11 +65,13 @@ const CarCard = ({ car }) => {
         {/* Button */}
         <div className="mt-5">
           {/* Button */}
-        <div className="mt-5">
-          <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
-            Rent Now
-          </button>
-        </div>
+          <div className="mt-5">
+            <Link to={`/carDetails/${_id}`}>
+              <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
+                Rent Now
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
