@@ -14,7 +14,10 @@ const Home = () => {
         <WhyChooseUs></WhyChooseUs>
       </section>
       {/* latest Car */}
-      <LatestCar></LatestCar>
+      <section className="w-11/12 mx-auto">
+        <LatestCar></LatestCar>
+      </section>
+
       {/*User testimonial */}
       <section className="w-11/12 mx-auto">
         <UserTestimonials></UserTestimonials>
