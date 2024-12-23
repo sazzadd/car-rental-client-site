@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "./../Provider/AuthProvider";
+import { format } from "date-fns"; // Import date-fns
 
 const AddCar = () => {
   const { user } = useContext(AuthContext);
@@ -15,19 +16,23 @@ const AddCar = () => {
     const formData = new FormData(e.target);
     const carData = Object.fromEntries(formData.entries());
 
-    const { features, ...newCar } = carData;
+    const { features, availability, ...newCar } = carData;
 
     // Split features into an array
     const arr = features.split("\n");
     newCar.features = arr;
 
+    // Convert availability to boolean
+    newCar.availability = availability === "available";
+
     // Submission date and time
     const now = new Date();
-    newCar.submissionDate = now.toLocaleDateString();
-    newCar.submissionTime = now.toLocaleTimeString();
+    newCar.submissionDate = format(now, "dd/MM/yyyy"); // Format date as day/month/year
+    newCar.submissionTime = format(now, "hh:mm:ss a"); // Format time as hour:minute:second AM/PM
     newCar.hrEmail = user.email;
     newCar.hrName = user.displayName;
 
+    console.log(newCar);
     try {
       await axios.post(`http://localhost:5000/add-car`, newCar);
       Swal.fire({
@@ -171,7 +176,6 @@ const AddCar = () => {
             />
           </div>
 
-          {/* Submit Button */}
           {/* Submit Button */}
           <div className="text-center">
             <button

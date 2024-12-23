@@ -1,5 +1,6 @@
+import { parse } from "date-fns";
 import React from "react";
-import { FaCar, FaCheckCircle, FaGasPump, FaUserFriends } from "react-icons/fa";
+import { FaCheckCircle, FaClock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
@@ -14,7 +15,28 @@ const CarCard = ({ car }) => {
     bookingCount,
     imageUrl,
     location,
+    submissionDate,
+    submissionTime,
   } = car;
+
+  // Combine the submission date and time into a single string and parse it
+  const submissionDateTime = `${submissionDate} ${submissionTime}`;
+  const parsedDate = parse(
+    submissionDateTime,
+    "dd/MM/yyyy hh:mm:ss a",
+    new Date()
+  );
+
+  // Get the exact distance from now including hours, minutes, and seconds
+  const now = new Date();
+  const diffInSeconds = Math.floor((now - parsedDate) / 1000); // Total seconds difference
+
+  const hours = Math.floor(diffInSeconds / 3600); // Calculate hours
+  const minutes = Math.floor((diffInSeconds % 3600) / 60); // Calculate minutes
+  const seconds = diffInSeconds % 60; // Calculate seconds
+
+  // Construct the time difference string
+  const timeAgo = `${hours} hours, ${minutes} minutes,`;
 
   return (
     <div className="max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden bg-white border border-gray-200">
@@ -32,7 +54,7 @@ const CarCard = ({ car }) => {
 
       {/* Card Content */}
       <div className="p-5">
-        {/* Rating */}
+        {/* Availability */}
         <div className="flex items-center mb-2">
           <div className="flex items-center text-sm mb-6">
             <FaCheckCircle
@@ -54,37 +76,21 @@ const CarCard = ({ car }) => {
         <h2 className="text-xl font-semibold text-gray-800">{carModel}</h2>
 
         {/* Description */}
-        <p className="text-gray-500 text-sm mt-2">
-          Komodo Island is one of the only places in the world where you can
-          spot...
-        </p>
+        <p className="text-gray-500 text-sm mt-2">{description}</p>
 
-        {/* Features */}
-        <div className="mt-4 space-y-2">
-          <div className="flex items-center text-gray-700 text-sm">
-            <FaUserFriends className="mr-2 text-[#FF4C30]" />
-            Seat Capacity: 4 People
-          </div>
-          <div className="flex items-center text-gray-700 text-sm">
-            <FaCar className="mr-2 text-[#FF4C30]" />
-            Total Doors: 4 Doors
-          </div>
-          <div className="flex items-center text-gray-700 text-sm">
-            <FaGasPump className="mr-2 text-[#FF4C30]" />
-            Fuel Tank: 450 Liters
-          </div>
+        {/* Posted Time */}
+        <div className="mt-4 flex items-center text-sm text-gray-500">
+          <FaClock className="mr-2 text-[#FF4C30]" />
+          <span>Posted {timeAgo}</span>
         </div>
 
         {/* Button */}
         <div className="mt-5">
-          {/* Button */}
-          <div className="mt-5">
-            <Link to={`/carDetails/${_id}`}>
-              <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
-                Rent Now
-              </button>
-            </Link>
-          </div>
+          <Link to={`/carDetails/${_id}`}>
+            <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
+              Rent Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>
