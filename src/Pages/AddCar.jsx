@@ -1,11 +1,11 @@
 import axios from "axios";
+import { format } from "date-fns"; // Import date-fns
 import React, { useContext } from "react";
 import { FaCar, FaDollarSign, FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "./../Provider/AuthProvider";
-import { format } from "date-fns"; // Import date-fns
 
 const AddCar = () => {
   const { user } = useContext(AuthContext);
@@ -32,6 +32,7 @@ const AddCar = () => {
     newCar.hrEmail = user.email;
     newCar.hrName = user.displayName;
     newCar.count = 0;
+    newCar.satus = "pending";
     console.log(newCar);
     try {
       await axios.post(`http://localhost:5000/add-car`, newCar);
