@@ -31,7 +31,7 @@ const AddCar = () => {
     newCar.submissionTime = format(now, "hh:mm:ss a"); // Format time as hour:minute:second AM/PM
     newCar.hrEmail = user.email;
     newCar.hrName = user.displayName;
-
+    newCar.count = 0;
     console.log(newCar);
     try {
       await axios.post(`http://localhost:5000/add-car`, newCar);
