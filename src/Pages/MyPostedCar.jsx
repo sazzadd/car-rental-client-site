@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 const MyPostedCar = () => {
   const { user } = useContext(AuthContext);
   const [cars, setCars] = useState([]);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [selectedCar, setSelectedCar] = useState(null); // State to store selected car details
 
   useEffect(() => {
     fetchCarsByEmail();
@@ -47,6 +49,11 @@ const MyPostedCar = () => {
         Swal.fire("Deleted!", "Your car has been deleted.", "success");
       }
     });
+  };
+
+  const openModal = (car) => {
+    setSelectedCar(car); // Store selected car details
+    setShowModal(true); // Open modal
   };
 
   return (
@@ -117,9 +124,11 @@ const MyPostedCar = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center space-x-2">
                       <button
+                        id="update"
                         className="px-3 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+                        onClick={() => openModal(car)} // Open modal on click
                       >
-                        <FaEdit />
+                        <FaEdit /> Update
                       </button>
                       <button
                         onClick={() => confirmDelete(car._id)}
@@ -133,6 +142,32 @@ const MyPostedCar = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Modal Implementation */}
+      {showModal && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 p-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Update Car Details</h2>
+            <form className="grid grid-cols-1 gap-4">
+              <input type="text" placeholder="Car Model" className="input input-bordered w-full" defaultValue={selectedCar?.carModel} />
+              <input type="number" placeholder="Price" className="input input-bordered w-full" defaultValue={selectedCar?.dailyRentalPrice} />
+              <input type="text" placeholder="Location" className="input input-bordered w-full" defaultValue={selectedCar?.location} />
+              <input type="text" placeholder="Image URL" className="input input-bordered w-full" defaultValue={selectedCar?.imageUrl} />
+              <textarea placeholder="Description" className="textarea textarea-bordered w-full" defaultValue={selectedCar?.description}></textarea>
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

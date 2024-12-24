@@ -81,7 +81,7 @@ const CarCard = ({ car }) => {
         {/* Posted Time */}
         <div className="mt-4 flex items-center text-sm text-gray-500">
           <FaClock className="mr-2 text-[#FF4C30]" />
-          <span>Posted {timeAgo}</span>
+          <span>Posted {timeAgo} ago</span>
         </div>
 
         {/* Button */}
