@@ -36,10 +36,10 @@ const CarCard = ({ car }) => {
   const seconds = diffInSeconds % 60; // Calculate seconds
 
   // Construct the time difference string
-  const timeAgo = `${hours} hours, ${minutes} minutes,`;
+  const timeAgo = `${hours} hours, ${minutes} minutes`;
 
   return (
-    <div className="max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden bg-white border border-gray-200">
+    <div className="max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden bg-white border border-gray-200 transform transition-transform duration-300 hover:scale-105">
       {/* Car Image with Price Badge */}
       <div className="relative">
         <img
@@ -67,7 +67,7 @@ const CarCard = ({ car }) => {
                 availability ? "text-green-500" : "text-red-500"
               }`}
             >
-              {availability ? "Available" : "Not Available"}
+              {availability ? "Available" : "Unavailable"}
             </span>
           </div>
         </div>
