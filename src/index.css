@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a.active {
+  @apply bg-[#FF4438] text-[#fff] font-medium   rounded-lg;
+}

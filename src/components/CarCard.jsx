@@ -88,7 +88,7 @@ const CarCard = ({ car }) => {
         <div className="mt-5">
           <Link to={`/carDetails/${_id}`}>
             <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
-              Rent Now
+            Book Now
             </button>
           </Link>
         </div>
