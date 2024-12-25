@@ -9,6 +9,8 @@ import MyPostedCar from "../Pages/MyPostedCar";
 import AuthLayout from "./../Auth/AuthLayout";
 import Login from "./../Auth/Login";
 import Register from "./../Auth/Register";
+import ErrorPage from "./../Pages/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/carDetails/:id",
-        element: <CarDetails></CarDetails>,
+
+        element: (
+          <PrivateRoute>
+            <CarDetails></CarDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-posted-cars",
@@ -37,10 +44,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-bookings",
-        
-        element: <MyBooking></MyBooking>,
+
+        element: (
+          <PrivateRoute>
+            <MyBooking></MyBooking>
+          </PrivateRoute>
+        ),
       },
     ],
+    errorElement: <ErrorPage></ErrorPage>,
   },
   {
     path: "auth",
@@ -55,6 +67,11 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
+    errorElement: <ErrorPage></ErrorPage>,
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>, // Display error page for any unmatched routes
   },
 ]);
 

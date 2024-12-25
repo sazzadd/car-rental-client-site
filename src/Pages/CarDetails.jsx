@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 
 const CarDetails = () => {
   const { user } = useContext(AuthContext);
@@ -19,6 +21,7 @@ const CarDetails = () => {
 
   useEffect(() => {
     fetchCarData();
+    AOS.init(); // Initialize AOS
   }, [id]);
 
   const fetchCarData = async () => {
@@ -57,6 +60,7 @@ const CarDetails = () => {
     const bookedEndDate = format(endDate, "dd-MM-yyyy HH:mm");
     const bookedLocalTime = format(new Date(), "dd-MM-yyyy HH:mm");
     const bookedEmail = user.email;
+    const status = "pending"
 
     // Validation to prevent booking own car
     if (user?.email === hrEmail) {
@@ -74,6 +78,7 @@ const CarDetails = () => {
       imageUrl,
       dailyRentalPrice,
       bookedLocalTime,
+      status,
     };
 
     try {
@@ -102,7 +107,10 @@ const CarDetails = () => {
     <div className="bg-gray-50 min-h-screen py-10">
       <div className="bg-white text-gray-800 p-6 rounded-lg shadow-xl flex flex-col md:flex-row max-w-5xl mx-auto">
         {/* Left Section: Car Image */}
-        <div className="w-full md:w-1/2 flex-shrink-0 hover:scale-105 transform transition-all duration-300">
+        <div
+          className="w-full md:w-1/2 flex-shrink-0 transform transition-all duration-300 hover:scale-110 hover:duration-500 ease-in-out"
+          data-aos="fade-up" // AOS animation for the left section
+        >
           <img
             src={imageUrl}
             className="rounded-lg shadow-lg w-full h-auto object-cover"
@@ -111,38 +119,26 @@ const CarDetails = () => {
         </div>
 
         {/* Right Section: Car Details */}
-        <div className="mt-6 md:mt-0 md:ml-8 flex-1">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
-            {carModel}
-          </h2>
+        <div className="mt-6 md:mt-0 md:ml-8 flex-1" data-aos="fade-up">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">{carModel}</h2>
           <div className="text-gray-700 text-sm mb-4">
             <FaMapMarkerAlt className="inline-block text-[#FF4C30] mr-2" />
             Location: {location || "Not Available"}
           </div>
           <div className="flex items-center text-sm mb-6">
             <FaCheckCircle
-              className={`inline-block mr-2 ${
-                availability ? "text-green-500" : "text-red-500"
-              }`}
+              className={`inline-block mr-2 ${availability ? "text-green-500" : "text-red-500"}`}
             />
-            <span
-              className={`text-xl font-semibold ${
-                availability ? "text-green-500" : "text-red-500"
-              }`}
-            >
+            <span className={`text-xl font-semibold ${availability ? "text-green-500" : "text-red-500"}`}>
               {availability ? "Available" : "Not Available"}
             </span>
           </div>
-          <p className="text-gray-600 text-lg leading-relaxed mb-6">
-            {description || "No description available."}
-          </p>
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">{description || "No description available."}</p>
           <h4 className="text-xl font-semibold text-gray-900 mb-2">Features:</h4>
           <ul className="list-disc list-inside text-gray-700 text-sm mb-6">
             {features.length > 0
               ? features.map((feature, index) => (
-                  <li key={index} className="capitalize">
-                    {feature}
-                  </li>
+                  <li key={index} className="capitalize">{feature}</li>
                 ))
               : "No features listed."}
           </ul>
@@ -160,9 +156,12 @@ const CarDetails = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal with Animation */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transform transition-all duration-1000 ease-in-out scale-100 hover:scale-105"
+          data-aos="zoom-in" // AOS animation for the modal
+        >
           <div className="bg-white rounded-lg w-full max-w-lg p-8">
             <h2 className="text-2xl font-semibold mb-4">Book Your Car</h2>
             <form onSubmit={handleSubmit}>

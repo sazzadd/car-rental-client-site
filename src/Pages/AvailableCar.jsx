@@ -1,11 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 import { FaThLarge, FaList, FaSearch } from "react-icons/fa";
 import CarCard from "../components/CarCard";
 
 const ListCarCard = ({ car }) => {
   return (
-    <div className="flex items-center border p-4 rounded-md shadow-md hover:shadow-lg transition-shadow bg-white">
+    <div
+      className="flex items-center border p-4 rounded-md shadow-md hover:shadow-lg transition-shadow bg-white"
+      data-aos="fade-up" // Add animation effect
+      data-aos-duration="800" // Animation duration
+      data-aos-easing="ease-in-out" // Animation easing
+    >
       {/* Car Image */}
       <img
         src={car.imageUrl}
@@ -44,6 +51,7 @@ const AvailableCar = () => {
 
   useEffect(() => {
     fetchAllCars();
+    AOS.init({ duration: 1200 }); // Initialize AOS with custom duration
   }, []);
 
   useEffect(() => {
@@ -110,7 +118,11 @@ const AvailableCar = () => {
         >
           {filteredCars.map((car) =>
             viewMode === "grid" ? (
-              <div key={car._id}>
+              <div
+                key={car._id}
+                data-aos="zoom-in" // Animation for grid mode
+                data-aos-duration="800"
+              >
                 <CarCard car={car}></CarCard>
               </div>
             ) : (
