@@ -4,10 +4,11 @@ import AddCar from "../Pages/AddCar";
 import AvailableCar from "../Pages/AvailableCar";
 import CarDetails from "../Pages/CarDetails";
 import Home from "../Pages/Home";
+import MyBooking from "../Pages/MyBooking";
+import MyPostedCar from "../Pages/MyPostedCar";
 import AuthLayout from "./../Auth/AuthLayout";
 import Login from "./../Auth/Login";
 import Register from "./../Auth/Register";
-import MyPostedCar from "../Pages/MyPostedCar";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/add-car", 
+        path: "/add-car",
         element: <AddCar></AddCar>,
       },
       {
@@ -27,12 +28,17 @@ const router = createBrowserRouter([
         element: <AvailableCar></AvailableCar>,
       },
       {
-        path: "/carDetails/:id", 
+        path: "/carDetails/:id",
         element: <CarDetails></CarDetails>,
       },
       {
         path: "/my-posted-cars",
-        element:<MyPostedCar></MyPostedCar>,
+        element: <MyPostedCar></MyPostedCar>,
+      },
+      {
+        path: "/my-bookings",
+        
+        element: <MyBooking></MyBooking>,
       },
     ],
   },
