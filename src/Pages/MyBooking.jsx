@@ -1,7 +1,8 @@
 import axios from "axios";
 import { differenceInDays, parse } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-import { FaCar } from "react-icons/fa";
+import { FaCar, FaTrash } from "react-icons/fa";
+import { SlCalender } from "react-icons/sl";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -111,7 +112,7 @@ const MyBooking = () => {
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-4xl font-extrabold text-[#FF4C30] text-center mb-8">
-          My Bookings
+          <FaCar className="inline-block mr-2 text-5xl" /> My Bookings
         </h1>
 
         {loading && (
@@ -147,8 +148,6 @@ const MyBooking = () => {
                   <tr key={book._id} className="border-b hover:bg-gray-100">
                     <td className="py-4 px-4">{index + 1}</td>
                     <td className="py-4 px-4">
-                      {/* {book.carModel} */}
-
                       <div className="flex items-center">
                         <img
                           src={book.imageUrl}
@@ -171,24 +170,60 @@ const MyBooking = () => {
                       End: {book.bookedEndDate}
                     </td>
                     <td className="py-4 px-4">
-                      {calculateTotalPrice(
-                        book.bookedStartDate,
-                        book.bookedEndDate,
-                        book.dailyRentalPrice
-                      )}
+                      <div className="text-gray-800">
+                        <div className="flex text-sm">
+                          <p>per day cost:</p>
+                          <p> {book.dailyRentalPrice} $</p>
+                        </div>
+                        <div className="flex text-sm">
+                          <p>total cost: </p>
+                          <span className="font-bold text-[#FF4C30]">
+                            {calculateTotalPrice(
+                              book.bookedStartDate,
+                              book.bookedEndDate,
+                              book.dailyRentalPrice
+                            )}{" "}
+                            $
+                          </span>
+                        </div>
+                      </div>
                     </td>
                     <td className="py-4 px-4">
-                      {book.bookingStatus === "confirmed"
-                        ? "Confirmed"
-                        : "Pending"}
+                      <span
+                        className={`px-3 py-1 rounded-lg ${
+                          book.bookingStatus === "confirmed"
+                            ? "bg-green-200 text-green-800"
+                            : "bg-yellow-200 text-yellow-800"
+                        }`}
+                      >
+                        {book.bookingStatus === "confirmed"
+                          ? "Confirmed"
+                          : "Pending"}
+                      </span>
                     </td>
-                    <td className="py-4 px-4">
+                    {/* <td className="py-4 px-4">
                       <button
-                        className="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500"
+                        className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
                         onClick={() => handleModifyDateClick(book)}
                       >
-                        Modify Date
+                        <SlCalender className="mr-2" /> Modify Date
                       </button>
+                    </td> */}
+                    <td className="py-4 px-4">
+                      <div className="flex space-x-2">
+                        <button
+                          className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
+                          onClick={() => handleModifyDateClick(book)}
+                        >
+                          <SlCalender className="mr-2" /> Modify Date
+                        </button>
+                        <button
+                          className="bg-red-500 flex text-white px-4 py-2 rounded-lg hover:bg-red-600 items-center"
+                          //   onClick={() => handleCancelBooking(book._id)}
+                        >
+                          <FaTrash className="mr-2" /> Cancel
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -200,7 +235,7 @@ const MyBooking = () => {
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-              <h2 className="text-2xl font-bold mb-4 text-center">
+              <h2 className="text-2xl font-bold mb-4 text-center text-[#FF4C30]">
                 Modify Booking Dates
               </h2>
               <div className="mb-4">
