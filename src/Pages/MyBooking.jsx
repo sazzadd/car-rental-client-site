@@ -1,15 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
-import {
-  FaCalendarCheck,
-  FaCar,
-  FaMoneyBillWave,
-  FaRegCalendarAlt,
-} from "react-icons/fa";
-import { GiCancel } from "react-icons/gi";
-import { AuthContext } from "../Provider/AuthProvider";
 import { differenceInDays, parse } from "date-fns";
+import React, { useContext, useEffect, useState } from "react";
+import { FaCar } from "react-icons/fa";
+import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
@@ -93,11 +87,19 @@ const MyBooking = () => {
             );
             Swal.fire("Success!", "Booking updated successfully!", "success");
           } else {
-            Swal.fire("Failed!", "Failed to update booking. Try again.", "error");
+            Swal.fire(
+              "Failed!",
+              "Failed to update booking. Try again.",
+              "error"
+            );
           }
         } catch (error) {
           console.error("Error updating booking:", error);
-          Swal.fire("Error!", "An error occurred. Please try again later.", "error");
+          Swal.fire(
+            "Error!",
+            "An error occurred. Please try again later.",
+            "error"
+          );
         } finally {
           handleModalClose();
         }
@@ -144,7 +146,25 @@ const MyBooking = () => {
                 {booked.map((book, index) => (
                   <tr key={book._id} className="border-b hover:bg-gray-100">
                     <td className="py-4 px-4">{index + 1}</td>
-                    <td className="py-4 px-4">{book.carModel}</td>
+                    <td className="py-4 px-4">
+                      {/* {book.carModel} */}
+
+                      <div className="flex items-center">
+                        <img
+                          src={book.imageUrl}
+                          alt="Car"
+                          className="w-16 h-16 object-cover rounded-md mr-4"
+                        />
+                        <div>
+                          <div className="font-medium text-gray-800">
+                            {book.carModel}
+                          </div>
+                          <div className="text-gray-500 text-sm">
+                            {book.carLocation}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
                     <td className="py-4 px-4">
                       Start: {book.bookedStartDate}
                       <br />
@@ -158,7 +178,9 @@ const MyBooking = () => {
                       )}
                     </td>
                     <td className="py-4 px-4">
-                      {book.bookingStatus === "confirmed" ? "Confirmed" : "Pending"}
+                      {book.bookingStatus === "confirmed"
+                        ? "Confirmed"
+                        : "Pending"}
                     </td>
                     <td className="py-4 px-4">
                       <button
