@@ -7,7 +7,7 @@ const NavBar = () => {
 
   const navLinks = user ? (
     <>
-      <li>
+      <li className="mr-4">
         <NavLink
           to="/"
           className="hover:text-[#FF4C30] transition-colors duration-300"
@@ -15,7 +15,7 @@ const NavBar = () => {
           Home
         </NavLink>
       </li>
-      <li>
+      <li className="mr-4">
         <NavLink
           to="/available-cars"
           className="hover:text-[#FF4C30] transition-colors duration-300"
@@ -23,7 +23,7 @@ const NavBar = () => {
           Available Cars
         </NavLink>
       </li>
-      <li>
+      <li className="mr-4">
         <NavLink
           to="/add-car"
           className="hover:text-[#FF4C30] transition-colors duration-300"
@@ -31,7 +31,7 @@ const NavBar = () => {
           Add Car
         </NavLink>
       </li>
-      <li>
+      <li className="mr-4">
         <NavLink
           to="/my-posted-cars"
           className="hover:text-[#FF4C30] transition-colors duration-300"
@@ -88,7 +88,6 @@ const NavBar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          // User is logged in, show profile picture and dropdown
           <div className="dropdown dropdown-end">
             <div
               tabIndex="0"
@@ -106,19 +105,16 @@ const NavBar = () => {
                 )}
               </div>
             </div>
-
-            {/* Profile Tooltip */}
             <div
               className="tooltip tooltip-bottom"
               data-tip={user.displayName || "User"}
             ></div>
-
-            {/* Dropdown Menu */}
             <ul
               tabIndex="0"
               className="menu menu-sm z-[1000] absolute dropdown-content bg-white rounded-lg mt-3 w-48 p-2 shadow-lg transition-all duration-300"
             >
               <li className="font-semibold">{user.displayName}</li>
+              <>{navLinks}</>
               <li className="font-semibold">
                 <button
                   onClick={handleLogOut}
@@ -130,7 +126,6 @@ const NavBar = () => {
             </ul>
           </div>
         ) : (
-          // User is not logged in, show Login button
           <div className="space-x-3 flex">
             <Link
               to="/auth/login"

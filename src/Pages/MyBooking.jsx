@@ -1,13 +1,27 @@
 import axios from "axios";
 import { differenceInDays, parse } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
+// import { Bar } from "react-chartjs-2";
 import { FaCar } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
+// Register the required components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [booked, setBooked] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
@@ -193,6 +207,35 @@ const MyBooking = () => {
   //     }
   //   });
   // };
+  // Chart Data Preparation
+  const dailyRentalPrices = booked.map((b) => b.dailyRentalPrice);
+  const carModels = booked.map((b) => b.carModel);
+
+  const chartData = {
+    labels: carModels,
+    datasets: [
+      {
+        label: "Daily Rental Price ($)",
+        data: dailyRentalPrices,
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Car Daily Rental Prices",
+      },
+    },
+  };
   const handleCancelReserve = async (bookingId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -437,6 +480,24 @@ const MyBooking = () => {
             </div>
           </div>
         )}
+      </div>
+      <div className="bg-gray-50 min-h-screen py-8">
+        <div className="max-w-6xl mx-auto px-4">
+          <h1 className="text-4xl font-extrabold text-[#FF4C30] text-center mb-8">
+            <FaCar className="inline-block mr-2 text-5xl" /> My Bookings
+          </h1>
+
+          {/* Existing Booking Table */}
+          {/* Your booking table and existing functionalities */}
+
+          {/* Chart Section */}
+          <div className="mt-8 bg-white shadow-lg rounded-lg p-6">
+            <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
+              Daily Rental Prices Overview
+            </h2>
+            <Bar data={chartData} options={chartOptions} />
+          </div>
+        </div>
       </div>
     </div>
   );

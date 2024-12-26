@@ -23,7 +23,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-car",
-        element: <AddCar></AddCar>,
+        element: (
+          <PrivateRoute>
+            <AddCar></AddCar>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/available-cars",
@@ -40,7 +44,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-posted-cars",
-        element: <MyPostedCar></MyPostedCar>,
+        element: (
+          <PrivateRoute>
+            <MyPostedCar></MyPostedCar>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-bookings",
