@@ -12,21 +12,20 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const navigate = useNavigate();
+  const { createNewUser, setUser, handleLogOut, updateUserProfile } =
+    useContext(AuthContext);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  const { createNewUser, setUser, user, updateUserProfile } =
-    useContext(AuthContext);
 
-  // ===========================
   const handleSignUp = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const photo = e.target.photo.value; // Fixed the field name
+    const photo = e.target.photo.value;
 
     // Password validation
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.{6,})/;
@@ -37,21 +36,17 @@ const Register = () => {
       return; // Stop the form submission if validation fails
     }
 
-
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
 
-        // Debug log to verify photo URL
-
-
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(() => {
-  
             toast.success("Registration successful!");
+            handleLogOut(); // Log out the user after registration
             setTimeout(() => {
-              navigate("/");
+              navigate("/auth/login"); // Redirect to the login page
             }, 2000);
           })
           .catch((error) => {
@@ -60,7 +55,6 @@ const Register = () => {
           });
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         toast.error(errorMessage || "An error occurred during registration.");
       });
@@ -69,17 +63,13 @@ const Register = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
       <div className="w-full max-w-md p-8 shadow-lg border border-gray-300 rounded-lg bg-white">
-        {/* Heading */}
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-2">
           Create an Account
         </h1>
         <p className="text-gray-600 text-center text-sm">
           Please fill in your details to register.
         </p>
-
-        {/* Form */}
         <form onSubmit={handleSignUp} className="mt-6">
-          {/* Name Field */}
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -101,8 +91,6 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {/* Email Field */}
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -124,8 +112,6 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {/* Photo URL Field */}
           <div className="mb-4">
             <label
               htmlFor="photoURL"
@@ -147,8 +133,6 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {/* Password Field */}
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -181,8 +165,6 @@ const Register = () => {
               </button>
             </div>
           </div>
-
-          {/* Register Button */}
           <button
             type="submit"
             className="w-full py-2 text-white bg-[#fbbd05] hover:bg-yellow-500 rounded-lg font-medium text-lg focus:outline-none focus:ring-2 focus:ring-[#fbbd05]"
@@ -190,8 +172,6 @@ const Register = () => {
             Register
           </button>
         </form>
-
-        {/* Footer */}
         <div className="text-center mt-6">
           <p className="text-sm text-gray-500">
             Already have an account?{" "}
