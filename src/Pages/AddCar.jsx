@@ -35,7 +35,7 @@ const AddCar = () => {
     newCar.satus = "pending";
     console.log(newCar);
     try {
-      await axios.post(`http://localhost:5000/add-car`, newCar);
+      await axios.post(`https://server-site-gules.vercel.app/add-car`, newCar);
       Swal.fire({
         title: "Success!",
         text: "Car Added Successfully",

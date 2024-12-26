@@ -43,7 +43,7 @@ const MyBooking = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/booked/${user?.email}`
+        `https://server-site-gules.vercel.app/booked/${user?.email}`
       );
       setBooked(data);
     } catch (error) {
@@ -94,7 +94,7 @@ const MyBooking = () => {
 
         try {
           const response = await axios.put(
-            `http://localhost:5000/booked/${selectedBooking._id}`,
+            `https://server-site-gules.vercel.app/booked/${selectedBooking._id}`,
             updatedData
           );
 
@@ -141,7 +141,7 @@ const MyBooking = () => {
   //     if (result.isConfirmed) {
   //       try {
   //         const response = await axios.put(
-  //           `http://localhost:5000/booked/cancel/${bookingId}`,
+  //           `https://server-site-gules.vercel.app/booked/cancel/${bookingId}`,
   //           { bookingStatus: "cancel" }
   //         );
   //         if (response.data.modifiedCount > 0) {
@@ -184,7 +184,7 @@ const MyBooking = () => {
   //     if (result.isConfirmed) {
   //       try {
   //         const response = await axios.put(
-  //           `http://localhost:5000/booked/cancel/${bookingId}`,
+  //           `https://server-site-gules.vercel.app/booked/cancel/${bookingId}`,
   //           { bookingStatus: "cancel" }
   //         );
   //         if (response.data.modifiedCount > 0) {
@@ -256,7 +256,7 @@ const MyBooking = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.put(
-            `http://localhost:5000/booked/cancel/${bookingId}`,
+            `https://server-site-gules.vercel.app/booked/cancel/${bookingId}`,
             { bookingStatus: "cancel" }
           );
           if (response.data.modifiedCount > 0) {

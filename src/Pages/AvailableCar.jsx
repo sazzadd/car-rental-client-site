@@ -1,8 +1,8 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
-import { FaThLarge, FaList, FaSearch } from "react-icons/fa";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaList, FaSearch, FaThLarge } from "react-icons/fa";
 import CarCard from "../components/CarCard";
 
 const ListCarCard = ({ car }) => {
@@ -23,10 +23,12 @@ const ListCarCard = ({ car }) => {
           {car.carModel}
         </h2>
         <p className="text-lg text-gray-600">
-          <span className="font-medium text-black">Price:</span> ${car.dailyRentalPrice} / Day
+          <span className="font-medium text-black">Price:</span> $
+          {car.dailyRentalPrice} / Day
         </p>
         <p className="text-lg text-gray-600">
-          <span className="font-medium text-black">Type:</span> {car.description}
+          <span className="font-medium text-black">Type:</span>{" "}
+          {car.description}
         </p>
         <p className="text-lg text-gray-600 flex items-center">
           <span className="font-medium text-black">Availability:</span>{" "}
@@ -59,7 +61,9 @@ const AvailableCar = () => {
 
   const fetchAllCars = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/cars`);
+      const { data } = await axios.get(
+        `https://server-site-gules.vercel.app/cars`
+      );
       const availableCars = data.filter((car) => car.availability);
       setCars(availableCars);
       setFilteredCars(availableCars);
@@ -74,9 +78,13 @@ const AvailableCar = () => {
     );
 
     if (sortOption === "dateNewest") {
-      searchResults.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+      searchResults.sort(
+        (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)
+      );
     } else if (sortOption === "dateOldest") {
-      searchResults.sort((a, b) => new Date(a.dateAdded) - new Date(b.dateAdded));
+      searchResults.sort(
+        (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded)
+      );
     } else if (sortOption === "priceLowest") {
       searchResults.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
     } else if (sortOption === "priceHighest") {
@@ -138,11 +146,7 @@ const AvailableCar = () => {
         >
           {filteredCars.map((car) =>
             viewMode === "grid" ? (
-              <div
-                key={car._id}
-                data-aos="zoom-in"
-                data-aos-duration="800"
-              >
+              <div key={car._id} data-aos="zoom-in" data-aos-duration="800">
                 <CarCard car={car}></CarCard>
               </div>
             ) : (

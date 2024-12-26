@@ -1,3 +1,5 @@
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 import axios from "axios";
 import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
@@ -8,8 +10,6 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
-import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
 
 const CarDetails = () => {
   const { user } = useContext(AuthContext);
@@ -25,7 +25,9 @@ const CarDetails = () => {
   }, [id]);
 
   const fetchCarData = async () => {
-    const { data } = await axios.get(`http://localhost:5000/cars/${id}`);
+    const { data } = await axios.get(
+      `https://server-site-gules.vercel.app/cars/${id}`
+    );
     setCar(data);
   };
 
@@ -60,7 +62,7 @@ const CarDetails = () => {
     const bookedEndDate = format(endDate, "dd-MM-yyyy HH:mm");
     const bookedLocalTime = format(new Date(), "dd-MM-yyyy HH:mm");
     const bookedEmail = user.email;
-    const status = "confirmed"
+    const status = "confirmed";
 
     // Validation to prevent booking own car
     if (user?.email === hrEmail) {
@@ -83,7 +85,7 @@ const CarDetails = () => {
 
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/add-booked`,
+        `https://server-site-gules.vercel.app/add-booked`,
         bookedData
       );
       console.log(data); // Log the response data
@@ -120,25 +122,39 @@ const CarDetails = () => {
 
         {/* Right Section: Car Details */}
         <div className="mt-6 md:mt-0 md:ml-8 flex-1" data-aos="fade-up">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">{carModel}</h2>
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
+            {carModel}
+          </h2>
           <div className="text-gray-700 text-sm mb-4">
             <FaMapMarkerAlt className="inline-block text-[#FF4C30] mr-2" />
             Location: {location || "Not Available"}
           </div>
           <div className="flex items-center text-sm mb-6">
             <FaCheckCircle
-              className={`inline-block mr-2 ${availability ? "text-green-500" : "text-red-500"}`}
+              className={`inline-block mr-2 ${
+                availability ? "text-green-500" : "text-red-500"
+              }`}
             />
-            <span className={`text-xl font-semibold ${availability ? "text-green-500" : "text-red-500"}`}>
+            <span
+              className={`text-xl font-semibold ${
+                availability ? "text-green-500" : "text-red-500"
+              }`}
+            >
               {availability ? "Available" : "Not Available"}
             </span>
           </div>
-          <p className="text-gray-600 text-lg leading-relaxed mb-6">{description || "No description available."}</p>
-          <h4 className="text-xl font-semibold text-gray-900 mb-2">Features:</h4>
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+            {description || "No description available."}
+          </p>
+          <h4 className="text-xl font-semibold text-gray-900 mb-2">
+            Features:
+          </h4>
           <ul className="list-disc list-inside text-gray-700 text-sm mb-6">
             {features.length > 0
               ? features.map((feature, index) => (
-                  <li key={index} className="capitalize">{feature}</li>
+                  <li key={index} className="capitalize">
+                    {feature}
+                  </li>
                 ))
               : "No features listed."}
           </ul>

@@ -23,7 +23,7 @@ const MyPostedCar = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/myposted/${user?.email}`
+        `https://server-site-gules.vercel.app/myposted/${user?.email}`
       );
       setCars(data);
     } catch (error) {
@@ -61,7 +61,7 @@ const MyPostedCar = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/cars/${id}`);
+      await axios.delete(`https://server-site-gules.vercel.app/cars/${id}`);
       setCars((prevCars) => prevCars.filter((car) => car._id !== id));
     } catch (error) {
       console.error("Error deleting car:", error);
@@ -105,7 +105,7 @@ const MyPostedCar = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/update-car/${selectedCar._id}`,
+        `https://server-site-gules.vercel.app/update-car/${selectedCar._id}`,
         carData
       );
       Swal.fire({
@@ -148,7 +148,8 @@ const MyPostedCar = () => {
 
       {loading ? (
         <div className="flex justify-center items-center py-16">
-          <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-t-transparent rounded-full"></div>
+          {/* <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-t-transparent rounded-full"></div> */}
+          <span className="loading loading-ring loading-lg"></span>
         </div>
       ) : cars.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">

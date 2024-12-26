@@ -11,7 +11,9 @@ const LatestCar = () => {
 
   const fetchLatestCars = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/cars`);
+      const { data } = await axios.get(
+        `https://server-site-gules.vercel.app/cars`
+      );
       // Limit to only 6 latest cars
       setCars(data.slice(0, 6));
     } catch (error) {
