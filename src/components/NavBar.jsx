@@ -79,7 +79,9 @@ const NavBar = () => {
               alt=""
               className="h-8 w-8"
             />
-            <span className="mt-3 text-2xl hidden md:block">Car Rental</span>
+            <span className="mt-3 ml-2 text-2xl hidden md:block">
+              Car Rental
+            </span>
           </div>
         </a>
       </div>

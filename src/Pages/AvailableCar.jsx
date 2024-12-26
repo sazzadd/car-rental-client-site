@@ -87,7 +87,7 @@ const AvailableCar = () => {
   };
 
   return (
-    <div className="mx-auto w-9/12">
+    <div className="mx-auto w-9/12 min-h-screen">
       <div className="flex items-center justify-between mt-4">
         <div className="relative flex items-center w-full max-w-md">
           <FaSearch className="absolute left-3 text-gray-400 text-lg" />

@@ -2,22 +2,29 @@ import axios from "axios";
 import { differenceInDays, parse } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 // import { Bar } from "react-chartjs-2";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 import { FaCar } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
-import {
-  Chart as ChartJS,
+
+// Register the required components
+ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
   Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-
-// Register the required components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+  Legend
+);
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [booked, setBooked] = useState([]);
@@ -377,41 +384,6 @@ const MyBooking = () => {
                       </span>
                     </td>
 
-                    {/* <td className="py-4 px-4">
-                      <div className="flex space-x-2">
-                        <button
-                          className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
-                          onClick={() => handleModifyDateClick(book)}
-                        >
-                          <SlCalender className="mr-2" /> Modify Date
-                        </button>
-                      
-                        <button
-                          className="bg-red-500 flex text-white px-4 py-2 rounded-lg hover:bg-red-600 items-center"
-                          onClick={() => handleCancelReserve(book._id)}
-                        >
-                          <FaTrash className="mr-2" /> Cancel Reserve
-                        </button>
-                      </div>
-                    </td> */}
-                    {/* <td className="py-4 px-4">
-                      <div className="flex space-x-2">
-                        <button
-                          className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
-                          onClick={() => handleModifyDateClick(book)}
-                        >
-                          <SlCalender className="mr-2" /> Modify Date
-                        </button>
-                        {book.status !== "cancel" && (
-                          <button
-                            className="bg-red-500 flex text-white px-4 py-2 rounded-lg hover:bg-red-600 items-center"
-                            onClick={() => handleCancelReserve(book._id)}
-                          >
-                            <FaTrash className="mr-2" /> Cancel Reserve
-                          </button>
-                        )}
-                      </div>
-                    </td> */}
                     <td className="py-4 px-4">
                       <div className="flex space-x-2">
                         {!shouldHideButtons(book.status) && (
@@ -483,11 +455,6 @@ const MyBooking = () => {
       </div>
       <div className="bg-gray-50 min-h-screen py-8">
         <div className="max-w-6xl mx-auto px-4">
-          <h1 className="text-4xl font-extrabold text-[#FF4C30] text-center mb-8">
-            <FaCar className="inline-block mr-2 text-5xl" /> My Bookings
-          </h1>
-
-          {/* Existing Booking Table */}
           {/* Your booking table and existing functionalities */}
 
           {/* Chart Section */}
