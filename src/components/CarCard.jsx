@@ -2,6 +2,7 @@ import { parse } from "date-fns";
 import React from "react";
 import { FaCheckCircle, FaClock } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FaCarSide } from "react-icons/fa";
 
 const CarCard = ({ car }) => {
   const {
@@ -17,6 +18,7 @@ const CarCard = ({ car }) => {
     location,
     submissionDate,
     submissionTime,
+    count,
   } = car;
 
   // Combine the submission date and time into a single string and parse it
@@ -83,12 +85,17 @@ const CarCard = ({ car }) => {
           <FaClock className="mr-2 text-[#FF4C30]" />
           <span>Posted {timeAgo} ago</span>
         </div>
-
+        {/* Posted Time */}
+        <div className="mt-4 flex items-center text-sm text-gray-600">
+        
+          <FaCarSide  className="mr-2 text-[#FF4C30]" />
+          <span className="text-[18px] bold">Total Rented: {count}</span>
+        </div>
         {/* Button */}
         <div className="mt-5">
           <Link to={`/carDetails/${_id}`}>
             <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
-            Book Now
+              Book Now
             </button>
           </Link>
         </div>

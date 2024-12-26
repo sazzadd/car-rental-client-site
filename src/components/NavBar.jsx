@@ -73,7 +73,8 @@ const NavBar = () => {
     <div className="navbar bg-base-100">
       <div className="navbar-start">
         <a className="btn btn-ghost text-xl">
-          <div className="flex items-center justify-center">
+          <div >
+            <Link className="flex items-center justify-center" to="/">
             <img
               src="https://i.ibb.co.com/R3kZbZ9/Screenshot-2024-12-22-120040-removebg-preview.png"
               alt=""
@@ -82,6 +83,8 @@ const NavBar = () => {
             <span className="mt-3 ml-2 text-2xl hidden md:block">
               Car Rental
             </span>
+            </Link>
+
           </div>
         </a>
       </div>

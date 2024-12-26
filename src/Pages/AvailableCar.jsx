@@ -8,27 +8,25 @@ import CarCard from "../components/CarCard";
 const ListCarCard = ({ car }) => {
   return (
     <div
-      className="flex items-center border p-4 rounded-md shadow-md hover:shadow-lg transition-shadow bg-white"
-      data-aos="fade-up" // Add animation effect
-      data-aos-duration="800" // Animation duration
-      data-aos-easing="ease-in-out" // Animation easing
+      className="flex flex-col md:flex-row items-center border p-4 rounded-md shadow-md hover:shadow-lg transition-shadow bg-white"
+      data-aos="fade-up"
+      data-aos-duration="800"
+      data-aos-easing="ease-in-out"
     >
       <img
         src={car.imageUrl}
         alt={car.carModel}
-        className="w-36 h-36 object-cover rounded-md mr-4"
+        className="w-full md:w-36 h-36 object-cover rounded-md md:mr-4 mb-4 md:mb-0"
       />
-      <div className="flex flex-col justify-center space-y-2">
-        <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+      <div className="flex flex-col justify-center space-y-2 text-center md:text-left">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-800 flex items-center">
           {car.carModel}
         </h2>
         <p className="text-lg text-gray-600">
-          <span className="font-medium text-black">Price:</span> $
-          {car.dailyRentalPrice} / Day
+          <span className="font-medium text-black">Price:</span> ${car.dailyRentalPrice} / Day
         </p>
         <p className="text-lg text-gray-600">
-          <span className="font-medium text-black">Type:</span>{" "}
-          {car.description}
+          <span className="font-medium text-black">Type:</span> {car.description}
         </p>
         <p className="text-lg text-gray-600 flex items-center">
           <span className="font-medium text-black">Availability:</span>{" "}
@@ -95,9 +93,9 @@ const AvailableCar = () => {
   };
 
   return (
-    <div className="mx-auto w-9/12 min-h-screen">
-      <div className="flex items-center justify-between mt-4">
-        <div className="relative flex items-center w-full max-w-md">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl min-h-screen">
+      <div className="flex flex-col sm:flex-row items-center justify-between mt-4 space-y-4 sm:space-y-0">
+        <div className="relative flex items-center w-full sm:max-w-md">
           <FaSearch className="absolute left-3 text-gray-400 text-lg" />
           <input
             type="text"
@@ -138,10 +136,10 @@ const AvailableCar = () => {
 
       {filteredCars.length > 0 ? (
         <div
-          className={`mt-8 xl:mt-16 ${
+          className={`mt-8 grid gap-8 ${
             viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8"
-              : "flex flex-col gap-6"
+              ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              : "flex flex-col"
           }`}
         >
           {filteredCars.map((car) =>

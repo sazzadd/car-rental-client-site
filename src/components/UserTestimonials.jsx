@@ -40,47 +40,56 @@ const UserTestimonials = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-100 to-gray-300">
-      <div className="container mx-auto text-center">
-        <h2
-          data-aos="zoom-in"
-          className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-12"
-        >
-          What Our Customers Say
-        </h2>
+    <section className="py-16 bg-gradient-to-b from-gray-100 to-gray-200">
+      <div className="w-11/12 mx-auto">
+        <div className="container mx-auto text-center">
+          {/* <h2
+            data-aos="zoom-in"
+            className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-12"
+          >
+            What Our Customers Say
+          </h2> */}
+          <h2
+            data-aos="zoom-in"
+            className="relative text-3xl md:text-4xl font-semibold text-gray-800 mb-12 pb-2"
+          >
+            What Our Customers Say
+            <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-1 w-20 bg-[#FF4C30] rounded-full"></span>
+          </h2>
 
-        {/* Testimonials Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              data-aos="flip-left"
-              className="relative group bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-110"
-            >
-              <div className="absolute -top-8">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-24 h-24 rounded-full mb-4 border-4 border-[#FF4C30] transition-transform duration-500 transform group-hover:rotate-6 group-hover:scale-110"
-                />
-              </div>
-              <h3 className="text-xl font-medium text-gray-800 mt-12 mb-3">
-                {testimonial.name}
-              </h3>
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <FaStar key={i} className="text-yellow-400" />
-                ))}
-              </div>
-              <p
-                className="text-gray-600 text-center italic"
-                data-aos="slide-up"
+          {/* Testimonials Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                data-aos="flip-left"
+                className="relative group bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-110"
               >
-                {testimonial.text}
-              </p>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-0 group-hover:opacity-30 rounded-lg transition-opacity duration-500"></div>
-            </div>
-          ))}
+                <div className="absolute -top-8">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-24 h-24 rounded-full mb-4 border-4 border-[#FF4C30] transition-transform duration-500 transform group-hover:rotate-6 group-hover:scale-110"
+                  />
+                </div>
+                <h3 className="text-xl font-medium text-gray-800 mt-12 mb-3">
+                  {testimonial.name}
+                </h3>
+                <div className="flex mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <FaStar key={i} className="text-yellow-400" />
+                  ))}
+                </div>
+                <p
+                  className="text-gray-600 text-center italic"
+                  data-aos="slide-up"
+                >
+                  {testimonial.text}
+                </p>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-0 group-hover:opacity-30 rounded-lg transition-opacity duration-500"></div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
