@@ -1,8 +1,7 @@
 import { parse } from "date-fns";
 import React from "react";
-import { FaCheckCircle, FaClock } from "react-icons/fa";
+import { FaCarSide, FaCheckCircle, FaClock } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { FaCarSide } from "react-icons/fa";
 
 const CarCard = ({ car }) => {
   const {
@@ -50,7 +49,7 @@ const CarCard = ({ car }) => {
           className="w-full h-48 object-cover"
         />
         <div className="absolute top-4 right-4 bg-[#FF4C30] text-white text-sm font-bold px-4 py-1 rounded-full shadow-md">
-          $49/Day
+          ${dailyRentalPrice}/Day
         </div>
       </div>
 
@@ -87,8 +86,7 @@ const CarCard = ({ car }) => {
         </div>
         {/* Posted Time */}
         <div className="mt-4 flex items-center text-sm text-gray-600">
-        
-          <FaCarSide  className="mr-2 text-[#FF4C30]" />
+          <FaCarSide className="mr-2 text-[#FF4C30]" />
           <span className="text-[18px] bold">Total Rented: {count}</span>
         </div>
         {/* Button */}
