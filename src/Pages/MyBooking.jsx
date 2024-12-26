@@ -1,8 +1,7 @@
 import axios from "axios";
 import { differenceInDays, parse } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-import { FaCar, FaTrash } from "react-icons/fa";
-import { SlCalender } from "react-icons/sl";
+import { FaCar } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -107,6 +106,141 @@ const MyBooking = () => {
       }
     });
   };
+  // cancel reservation
+  // const handleCancelReserve = async (bookingId) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "Do you really want to cancel the booking?",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Yes, cancel it!",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       try {
+  //         const response = await axios.put(
+  //           `http://localhost:5000/booked/cancel/${bookingId}`,
+  //           { bookingStatus: "cancel" }
+  //         );
+  //         if (response.data.modifiedCount > 0) {
+  //           setBooked((prev) =>
+  //             prev.map((booking) =>
+  //               booking._id === bookingId
+  //                 ? { ...booking, bookingStatus: "cancel" }
+  //                 : booking
+  //             )
+  //           );
+  //           Swal.fire(
+  //             "Cancelled!",
+  //             "The booking has been cancelled.",
+  //             "success"
+  //           );
+  //         } else {
+  //           Swal.fire(
+  //             "Failed!",
+  //             "Failed to cancel booking. Please try again.",
+  //             "error"
+  //           );
+  //         }
+  //       } catch (error) {
+  //         console.error("Error cancelling booking:", error);
+  //         Swal.fire("Error!", "An error occurred. Please try again.", "error");
+  //       }
+  //     }
+  //   });
+  // };
+  // const handleCancelReserve = async (bookingId) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "Do you really want to cancel the booking?",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Yes, cancel it!",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       try {
+  //         const response = await axios.put(
+  //           `http://localhost:5000/booked/cancel/${bookingId}`,
+  //           { bookingStatus: "cancel" }
+  //         );
+  //         if (response.data.modifiedCount > 0) {
+  //           setBooked((prev) =>
+  //             prev.map((booking) =>
+  //               booking._id === bookingId
+  //                 ? { ...booking, status: "cancel" }
+  //                 : booking
+  //             )
+  //           );
+  //           Swal.fire(
+  //             "Cancelled!",
+  //             "The booking has been cancelled.",
+  //             "success"
+  //           );
+  //         } else {
+  //           Swal.fire(
+  //             "Failed!",
+  //             "Failed to cancel booking. Please try again.",
+  //             "error"
+  //           );
+  //         }
+  //       } catch (error) {
+  //         console.error("Error cancelling booking:", error);
+  //         Swal.fire("Error!", "An error occurred. Please try again.", "error");
+  //       }
+  //     }
+  //   });
+  // };
+  const handleCancelReserve = async (bookingId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to cancel the booking?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, cancel it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.put(
+            `http://localhost:5000/booked/cancel/${bookingId}`,
+            { bookingStatus: "cancel" }
+          );
+          if (response.data.modifiedCount > 0) {
+            setBooked((prev) =>
+              prev.map((booking) =>
+                booking._id === bookingId
+                  ? { ...booking, status: "cancel" }
+                  : booking
+              )
+            );
+            Swal.fire(
+              "Cancelled!",
+              "The booking has been cancelled.",
+              "success"
+            );
+          } else {
+            Swal.fire(
+              "Failed!",
+              "Failed to cancel booking. Please try again.",
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Error cancelling booking:", error);
+          Swal.fire("Error!", "An error occurred. Please try again.", "error");
+        }
+      }
+    });
+  };
+
+  // Button Render Logic
+  const shouldHideButtons = (status) => {
+    return status === "cancel";
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen py-8">
@@ -191,25 +325,16 @@ const MyBooking = () => {
                     <td className="py-4 px-4">
                       <span
                         className={`px-3 py-1 rounded-lg ${
-                          book.bookingStatus === "confirmed"
-                            ? "bg-green-200 text-green-800"
-                            : "bg-yellow-200 text-yellow-800"
+                          book.status === "cancel"
+                            ? "bg-red-400 text-white"
+                            : "bg-green-300 text-black"
                         }`}
                       >
-                        {book.bookingStatus === "confirmed"
-                          ? "Confirmed"
-                          : "Pending"}
+                        {book.status === "confirmed" ? "Confirmed" : "Cancel"}
                       </span>
                     </td>
+
                     {/* <td className="py-4 px-4">
-                      <button
-                        className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
-                        onClick={() => handleModifyDateClick(book)}
-                      >
-                        <SlCalender className="mr-2" /> Modify Date
-                      </button>
-                    </td> */}
-                    <td className="py-4 px-4">
                       <div className="flex space-x-2">
                         <button
                           className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
@@ -217,12 +342,51 @@ const MyBooking = () => {
                         >
                           <SlCalender className="mr-2" /> Modify Date
                         </button>
+                      
                         <button
                           className="bg-red-500 flex text-white px-4 py-2 rounded-lg hover:bg-red-600 items-center"
-                          //   onClick={() => handleCancelBooking(book._id)}
+                          onClick={() => handleCancelReserve(book._id)}
                         >
-                          <FaTrash className="mr-2" /> Cancel
+                          <FaTrash className="mr-2" /> Cancel Reserve
                         </button>
+                      </div>
+                    </td> */}
+                    {/* <td className="py-4 px-4">
+                      <div className="flex space-x-2">
+                        <button
+                          className="bg-blue-400 flex text-white px-4 py-2 rounded-lg hover:bg-blue-500 items-center"
+                          onClick={() => handleModifyDateClick(book)}
+                        >
+                          <SlCalender className="mr-2" /> Modify Date
+                        </button>
+                        {book.status !== "cancel" && (
+                          <button
+                            className="bg-red-500 flex text-white px-4 py-2 rounded-lg hover:bg-red-600 items-center"
+                            onClick={() => handleCancelReserve(book._id)}
+                          >
+                            <FaTrash className="mr-2" /> Cancel Reserve
+                          </button>
+                        )}
+                      </div>
+                    </td> */}
+                    <td className="py-4 px-4">
+                      <div className="flex space-x-2">
+                        {!shouldHideButtons(book.status) && (
+                          <>
+                            <button
+                              className="bg-blue-400 flex text-white px-4 py-2 rounded-lg"
+                              onClick={() => handleModifyDateClick(book)}
+                            >
+                              Modify Date
+                            </button>
+                            <button
+                              className="bg-red-500 flex text-white px-4 py-2 rounded-lg"
+                              onClick={() => handleCancelReserve(book._id)}
+                            >
+                              Cancel Reserve
+                            </button>
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>

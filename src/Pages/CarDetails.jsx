@@ -60,7 +60,7 @@ const CarDetails = () => {
     const bookedEndDate = format(endDate, "dd-MM-yyyy HH:mm");
     const bookedLocalTime = format(new Date(), "dd-MM-yyyy HH:mm");
     const bookedEmail = user.email;
-    const status = "pending"
+    const status = "confirmed"
 
     // Validation to prevent booking own car
     if (user?.email === hrEmail) {
