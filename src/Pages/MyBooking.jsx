@@ -1,7 +1,6 @@
 import axios from "axios";
-import { differenceInDays, parse } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
-// import { Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   BarElement,
   CategoryScale,
@@ -11,12 +10,12 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
-import { FaCar } from "react-icons/fa";
+import { differenceInDays, format, parse } from "date-fns";
 import Swal from "sweetalert2";
+import { FaCar } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 
-// Register the required components
+// Chart.js registration
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,10 +24,10 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 const MyBooking = () => {
   const { user } = useContext(AuthContext);
   const [booked, setBooked] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
@@ -47,7 +46,7 @@ const MyBooking = () => {
       );
       setBooked(data);
     } catch (error) {
-      console.error("Error fetching cars:", error);
+      console.error("Error fetching bookings:", error);
     } finally {
       setLoading(false);
     }
@@ -88,8 +87,8 @@ const MyBooking = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const updatedData = {
-          bookedStartDate: startDate,
-          bookedEndDate: endDate,
+          bookedStartDate: format(new Date(startDate), "dd-MM-yyyy HH:mm"),
+          bookedEndDate: format(new Date(endDate), "dd-MM-yyyy HH:mm"),
         };
 
         try {
@@ -127,124 +126,7 @@ const MyBooking = () => {
       }
     });
   };
-  // cancel reservation
-  // const handleCancelReserve = async (bookingId) => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "Do you really want to cancel the booking?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#d33",
-  //     cancelButtonColor: "#3085d6",
-  //     confirmButtonText: "Yes, cancel it!",
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       try {
-  //         const response = await axios.put(
-  //           `https://server-site-gules.vercel.app/booked/cancel/${bookingId}`,
-  //           { bookingStatus: "cancel" }
-  //         );
-  //         if (response.data.modifiedCount > 0) {
-  //           setBooked((prev) =>
-  //             prev.map((booking) =>
-  //               booking._id === bookingId
-  //                 ? { ...booking, bookingStatus: "cancel" }
-  //                 : booking
-  //             )
-  //           );
-  //           Swal.fire(
-  //             "Cancelled!",
-  //             "The booking has been cancelled.",
-  //             "success"
-  //           );
-  //         } else {
-  //           Swal.fire(
-  //             "Failed!",
-  //             "Failed to cancel booking. Please try again.",
-  //             "error"
-  //           );
-  //         }
-  //       } catch (error) {
-  //         console.error("Error cancelling booking:", error);
-  //         Swal.fire("Error!", "An error occurred. Please try again.", "error");
-  //       }
-  //     }
-  //   });
-  // };
-  // const handleCancelReserve = async (bookingId) => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "Do you really want to cancel the booking?",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#d33",
-  //     cancelButtonColor: "#3085d6",
-  //     confirmButtonText: "Yes, cancel it!",
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       try {
-  //         const response = await axios.put(
-  //           `https://server-site-gules.vercel.app/booked/cancel/${bookingId}`,
-  //           { bookingStatus: "cancel" }
-  //         );
-  //         if (response.data.modifiedCount > 0) {
-  //           setBooked((prev) =>
-  //             prev.map((booking) =>
-  //               booking._id === bookingId
-  //                 ? { ...booking, status: "cancel" }
-  //                 : booking
-  //             )
-  //           );
-  //           Swal.fire(
-  //             "Cancelled!",
-  //             "The booking has been cancelled.",
-  //             "success"
-  //           );
-  //         } else {
-  //           Swal.fire(
-  //             "Failed!",
-  //             "Failed to cancel booking. Please try again.",
-  //             "error"
-  //           );
-  //         }
-  //       } catch (error) {
-  //         console.error("Error cancelling booking:", error);
-  //         Swal.fire("Error!", "An error occurred. Please try again.", "error");
-  //       }
-  //     }
-  //   });
-  // };
-  // Chart Data Preparation
-  const dailyRentalPrices = booked.map((b) => b.dailyRentalPrice);
-  const carModels = booked.map((b) => b.carModel);
 
-  const chartData = {
-    labels: carModels,
-    datasets: [
-      {
-        label: "Daily Rental Price ($)",
-        data: dailyRentalPrices,
-        backgroundColor: "rgba(54, 162, 235, 0.5)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        borderWidth: 1,
-        borderRadius: 8,
-        hoverBackgroundColor: "rgba(54, 162, 235, 0.7)",
-        hoverBorderColor: "rgba(54, 162, 235, 1)",
-      },
-    ],
-  };
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Car Daily Rental Prices",
-      },
-    },
-  };
   const handleCancelReserve = async (bookingId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -289,11 +171,39 @@ const MyBooking = () => {
     });
   };
 
-  // Button Render Logic
-  const shouldHideButtons = (status) => {
-    return status === "cancel";
+  const dailyRentalPrices = booked.map((b) => b.dailyRentalPrice);
+  const carModels = booked.map((b) => b.carModel);
+
+  const chartData = {
+    labels: carModels,
+    datasets: [
+      {
+        label: "Daily Rental Price ($)",
+        data: dailyRentalPrices,
+        backgroundColor: "rgba(54, 162, 235, 0.5)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: "rgba(54, 162, 235, 0.7)",
+        hoverBorderColor: "rgba(54, 162, 235, 1)",
+      },
+    ],
   };
 
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Car Daily Rental Prices",
+      },
+    },
+  };
+
+  const shouldHideButtons = (status) => status === "cancel";
   return (
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="max-w-6xl mx-auto px-4">
