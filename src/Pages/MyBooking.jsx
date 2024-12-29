@@ -1,6 +1,6 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
 import {
   BarElement,
   CategoryScale,
@@ -11,11 +11,11 @@ import {
   Tooltip,
 } from "chart.js";
 import { differenceInDays, format, parse } from "date-fns";
+import React, { useContext, useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
+import { FaCalendar, FaCar, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { FaCar } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
-
-// Chart.js registration
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -37,7 +37,10 @@ const MyBooking = () => {
   useEffect(() => {
     fetchCarsByEmail();
   }, [user]);
-
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const fetchCarsByEmail = async () => {
     setLoading(true);
     try {
@@ -299,20 +302,22 @@ const MyBooking = () => {
                     <td className="py-4 px-4">
                       <div className="flex space-x-2">
                         {!shouldHideButtons(book.status) && (
-                          <>
+                          <div className="flex">
                             <button
-                              className="bg-blue-400 flex text-white px-4 py-2 rounded-lg"
+                              className="bg-blue-400 hover:bg-blue-500 flex items-center text-white px-2 mr-2 py-1 text-xs rounded shadow focus:outline-none transition-all"
                               onClick={() => handleModifyDateClick(book)}
                             >
+                              <FaCalendar className="text-base mr-2" />
                               Modify Date
                             </button>
                             <button
-                              className="bg-red-500 flex text-white px-4 py-2 rounded-lg"
+                              className="bg-red-500 hover:bg-red-600 flex items-center text-white px-3 py-1 text-sm rounded-md shadow-md focus:outline-none transition-all"
                               onClick={() => handleCancelReserve(book._id)}
                             >
-                              Cancel Reserve
+                              <FaTrash className="text-base mr-2" />
+                              Cancel
                             </button>
-                          </>
+                          </div>
                         )}
                       </div>
                     </td>
@@ -322,45 +327,115 @@ const MyBooking = () => {
             </table>
           </div>
         )}
-
+        {/* 
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-              <h2 className="text-2xl font-bold mb-4 text-center text-[#FF4C30]">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 transition-opacity duration-300 ease-in-out">
+            <div
+              className="bg-white p-8 rounded-lg shadow-xl w-96 relative animate-slide-down"
+              style={{ animation: "slide-down 0.5s ease-in-out" }}
+            >
+              <h2 className="text-2xl font-bold mb-6 text-center text-[#FF4C30]">
                 Modify Booking Dates
               </h2>
               <div className="mb-4">
-                <label className="block text-gray-600 mb-2">Start Date</label>
+                <label className="block text-gray-600 mb-2 font-medium">
+                  Start Date
+                </label>
                 <input
                   type="datetime-local"
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4C30] transition"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-600 mb-2">End Date</label>
+                <label className="block text-gray-600 mb-2 font-medium">
+                  End Date
+                </label>
                 <input
                   type="datetime-local"
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4C30] transition"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-end space-x-4">
                 <button
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md focus:outline-none transition-all"
                   onClick={handleModalClose}
                 >
                   Close
                 </button>
                 <button
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg"
+                  className="bg-[#3085d6] hover:bg-[#2664a3] text-white px-4 py-2 rounded-lg shadow-md focus:outline-none transition-all"
                   onClick={handleDateSubmit}
                 >
                   Update
                 </button>
               </div>
+              
+              <button
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-lg focus:outline-none transition"
+                onClick={handleModalClose}
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        )} */}
+        {showModal && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+            data-aos="zoom-in"
+            data-aos-duration="800"
+          >
+            <div className="bg-white p-8 rounded-lg shadow-xl w-96 relative">
+              <h2 className="text-2xl font-bold mb-6 text-center text-[#FF4C30]">
+                Update Booking Dates
+              </h2>
+              <div className="mb-4">
+                <label className="block text-gray-600 mb-2 font-medium">
+                  Start Date
+                </label>
+                <input
+                  type="datetime-local"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4C30] transition"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-600 mb-2 font-medium">
+                  End Date
+                </label>
+                <input
+                  type="datetime-local"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4C30] transition"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-end space-x-4">
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md focus:outline-none transition-all"
+                  onClick={handleModalClose}
+                >
+                  Close
+                </button>
+                <button
+                  className="bg-[#3085d6] hover:bg-[#2664a3] text-white px-4 py-2 rounded-lg shadow-md focus:outline-none transition-all"
+                  onClick={handleDateSubmit}
+                >
+                  Update
+                </button>
+              </div>
+              {/* Close Icon */}
+              <button
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-lg focus:outline-none transition"
+                onClick={handleModalClose}
+              >
+                &times;
+              </button>
             </div>
           </div>
         )}

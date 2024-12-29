@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar";
 
 const MainLayouts = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden ">
       {/* Navbar */}
       <section>
         <NavBar></NavBar>

@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCar } from "react-icons/fa";
+import { Typewriter } from "react-simple-typewriter";
 
 const Banner = () => {
   return (
@@ -15,7 +16,15 @@ const Banner = () => {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-wide drop-shadow-lg animate-fade-in">
-          Fuel Your Dreams with Action!
+          <Typewriter
+            words={["Fuel Your Dreams with Action!", "Drive Premium Cars Today!", "Adventure Awaits!"]}
+            loop={true}
+            cursor
+            cursorStyle="_"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+          />
         </h1>
         <p className="mt-6 text-lg md:text-2xl max-w-2xl font-medium drop-shadow-md animate-slide-up">
           Drive premium and exotic cars like never before. Start your journey today and redefine the road!

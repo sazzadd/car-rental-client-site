@@ -23,10 +23,12 @@ const ListCarCard = ({ car }) => {
           {car.carModel}
         </h2>
         <p className="text-lg text-gray-600">
-          <span className="font-medium text-black">Price:</span> ${car.dailyRentalPrice} / Day
+          <span className="font-medium text-black">Price:</span> $
+          {car.dailyRentalPrice} / Day
         </p>
         <p className="text-lg text-gray-600">
-          <span className="font-medium text-black">Type:</span> {car.description}
+          <span className="font-medium text-black">Type:</span>{" "}
+          {car.description}
         </p>
         <p className="text-lg text-gray-600 flex items-center">
           <span className="font-medium text-black">Availability:</span>{" "}
@@ -45,7 +47,8 @@ const AvailableCar = () => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
   const [viewMode, setViewMode] = useState("grid");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [carModelQuery, setCarModelQuery] = useState("");
+  const [carLocationQuery, setCarLocationQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const AvailableCar = () => {
 
   useEffect(() => {
     handleSearch();
-  }, [searchQuery, sortOption]);
+  }, [carModelQuery, carLocationQuery, sortOption]);
 
   const fetchAllCars = async () => {
     try {
@@ -71,17 +74,27 @@ const AvailableCar = () => {
   };
 
   const handleSearch = () => {
-    let searchResults = cars.filter((car) =>
-      car.carModel.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    let searchResults = cars;
+
+    if (carModelQuery) {
+      searchResults = searchResults.filter((car) =>
+        car.carModel.toLowerCase().includes(carModelQuery.toLowerCase())
+      );
+    }
+
+    if (carLocationQuery) {
+      searchResults = searchResults.filter((car) =>
+        car.location.toLowerCase().includes(carLocationQuery.toLowerCase())
+      );
+    }
 
     if (sortOption === "dateNewest") {
       searchResults.sort(
-        (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)
+        (a, b) => a.dailyRentalPrice - b.dailyRentalPrice
       );
     } else if (sortOption === "dateOldest") {
       searchResults.sort(
-        (a, b) => new Date(a.dateAdded) - new Date(b.dateAdded)
+        (a, b) => b.dailyRentalPrice - a.dailyRentalPrice
       );
     } else if (sortOption === "priceLowest") {
       searchResults.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
@@ -94,43 +107,60 @@ const AvailableCar = () => {
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl min-h-screen">
-      <div className="flex flex-col sm:flex-row items-center justify-between mt-4 space-y-4 sm:space-y-0">
-        <div className="relative flex items-center w-full sm:max-w-md">
-          <FaSearch className="absolute left-3 text-gray-400 text-lg" />
-          <input
-            type="text"
-            placeholder="Search by car model..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ff4c30]"
-          />
-        </div>
-        <div className="flex items-center space-x-4">
-          <select
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff4c30]"
-          >
-            <option value="">Sort By</option>
-            <option value="dateNewest">Date Added: Newest First</option>
-            <option value="dateOldest">Date Added: Oldest First</option>
-            <option value="priceLowest">Price: Lowest First</option>
-            <option value="priceHighest">Price: Highest First</option>
-          </select>
-          <button
-            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-            className="flex items-center px-4 py-2 bg-[#ff4c30] text-white rounded-md hover:bg-[#e0432c] focus:outline-none shadow-lg"
-          >
-            {viewMode === "grid" ? (
-              <>
-                <FaList className="mr-2 text-xl" /> Switch to List View
-              </>
-            ) : (
-              <>
-                <FaThLarge className="mr-2 text-xl" /> Switch to Grid View
-              </>
-            )}
-          </button>
+      <div className="bg-[#f8f9fa] rounded-md shadow-md p-6 mb-6">
+        <div className="flex flex-wrap items-center justify-between space-y-4 sm:space-y-0">
+          {/* Search by Model */}
+          <div className="relative border-[#ff4c30] border rounded-md  w-full sm:w-auto sm:mr-4">
+            <FaSearch className="absolute  mt-3 left-3 text-gray-400 text-lg" />
+            <input
+              type="text"
+              placeholder="Search by car model..."
+              value={carModelQuery}
+              onChange={(e) => setCarModelQuery(e.target.value)}
+              className="w-full sm:w-64 pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ff4c30]"
+            />
+          </div>
+
+          {/* Search by Location */}
+          <div className="relative border-[#ff4c30] border rounded-md w-full sm:w-auto sm:mr-4">
+            <FaSearch className="absolute mt-3 left-3 text-gray-400 text-lg" />
+            <input
+              type="text"
+              placeholder="Search by location..."
+              value={carLocationQuery}
+              onChange={(e) => setCarLocationQuery(e.target.value)}
+              className="w-full sm:w-64 pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ff4c30]"
+            />
+          </div>
+
+          {/* Sort and View Mode */}
+          <div className="flex items-center space-x-4">
+            <select 
+
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className=" border-[#ff4c30] border   rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff4c30]"
+            >
+              <option value="">Sort By</option>
+           
+              <option value="priceLowest">Price: Lowest First</option>
+              <option value="priceHighest">Price: Highest First</option>
+            </select>
+            <button
+              onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+              className="flex items-center px-4 py-2 bg-[#ff4c30] text-white rounded-md hover:bg-[#e0432c] focus:outline-none shadow-lg"
+            >
+              {viewMode === "grid" ? (
+                <>
+                  <FaList className="mr-2 text-xl" /> List View
+                </>
+              ) : (
+                <>
+                  <FaThLarge className="mr-2 text-xl" /> Grid View
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

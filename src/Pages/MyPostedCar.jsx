@@ -1,3 +1,5 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { FaEdit, FaSort, FaTrashAlt } from "react-icons/fa";
@@ -17,6 +19,7 @@ const MyPostedCar = () => {
 
   useEffect(() => {
     fetchCarsByEmail();
+    AOS.init();
   }, [user]);
 
   const fetchCarsByEmail = async () => {
@@ -131,18 +134,24 @@ const MyPostedCar = () => {
       </div>
 
       <div className="flex justify-end mb-4">
-        <div className="relative inline-block w-40">
+        <div className="relative inline-block w-full sm:w-40">
+          {/* Dropdown with Default "Sort By" */}
           <select
-            className="select select-bordered w-full pr-10"
+            className="block  w-full px-4 py-2 pr-10 border border-[#ff4c30] rounded-md shadow-sm bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff4c30] focus:border-[#ff4c30] transition duration-200"
             value={sortOption}
             onChange={handleSortChange}
           >
+            {/* Default Option */}
+            <option value="" hidden>
+              Sort By
+            </option>
             <option value="newest">Date Added (Newest)</option>
             <option value="oldest">Date Added (Oldest)</option>
             <option value="priceAsc">Price (Low to High)</option>
             <option value="priceDesc">Price (High to Low)</option>
           </select>
-          <FaSort className="absolute top-3 right-3 text-gray-500" />
+          {/* Sort Icon */}
+          <FaSort className="absolute top-3 right-3 text-gray-400 pointer-events-none" />
         </div>
       </div>
 
@@ -380,6 +389,7 @@ const MyPostedCar = () => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };

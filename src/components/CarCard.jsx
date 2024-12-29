@@ -1,6 +1,6 @@
 import { parse } from "date-fns";
 import React from "react";
-import { FaCarSide, FaCheckCircle, FaClock } from "react-icons/fa";
+import { FaCarSide, FaCheckCircle, FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
@@ -79,16 +79,24 @@ const CarCard = ({ car }) => {
         {/* Description */}
         <p className="text-gray-500 text-sm mt-2">{description}</p>
 
+        {/* Location */}
+        <div className="mt-4 flex items-center text-sm text-gray-600">
+          <FaMapMarkerAlt className="mr-2 text-[#FF4C30]" />
+          <p className="text-gray-500 text-sm">{location}</p>
+        </div>
+
         {/* Posted Time */}
         <div className="mt-4 flex items-center text-sm text-gray-500">
           <FaClock className="mr-2 text-[#FF4C30]" />
           <span>Posted {timeAgo} ago</span>
         </div>
-        {/* Posted Time */}
+
+        {/* Total Rented */}
         <div className="mt-4 flex items-center text-sm text-gray-600">
           <FaCarSide className="mr-2 text-[#FF4C30]" />
           <span className="text-[18px] bold">Total Rented: {count}</span>
         </div>
+
         {/* Button */}
         <div className="mt-5">
           <Link to={`/carDetails/${_id}`}>
