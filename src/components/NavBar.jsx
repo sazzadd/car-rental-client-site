@@ -28,7 +28,7 @@ const NavBar = () => {
           to="/add-car"
           className="hover:text-[#FF4C30] transition-colors duration-300"
         >
-          Add Car 
+          Add Car
         </NavLink>
       </li>
       <li className="mr-4">
@@ -97,7 +97,7 @@ const NavBar = () => {
               {navLinks}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">
+          <Link to="/" className="btn btn-ghost text-xl">
             <span className="hidden md:block">
               <img
                 src="https://i.ibb.co.com/R3kZbZ9/Screenshot-2024-12-22-120040-removebg-preview.png"
@@ -106,7 +106,7 @@ const NavBar = () => {
               />
             </span>{" "}
             Car Rental{" "}
-          </a>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
