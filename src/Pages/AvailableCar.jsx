@@ -102,7 +102,7 @@ const AvailableCar = () => {
   };
 
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-7xl min-h-screen">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full max-w-7xl min-h-screen">
       <div className="bg-[#f8f9fa] rounded-md shadow-md p-6 mb-6">
         <div className="flex flex-wrap items-center justify-between space-y-4 sm:space-y-0">
           {/* Search by Model */}

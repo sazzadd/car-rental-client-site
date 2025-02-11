@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -38,7 +38,14 @@ const Footer = () => {
           >
             <FaLinkedin size={25}></FaLinkedin>
           </a>
-         
+          <a
+            href="https://x.com/sazzadhosainn"
+            target="_blank"
+            className="hover:text-[#ff4c30] transition-colors duration-300"
+            aria-label="Twitter"
+          >
+            <FaTwitter size={25}></FaTwitter>
+          </a>
         </nav>
 
         {/* Quick Links */}
