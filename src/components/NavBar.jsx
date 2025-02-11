@@ -12,7 +12,7 @@ const NavBar = () => {
           to="/"
           className="hover:text-[#FF4C30] transition-colors duration-300"
         >
-          Homeee
+          Home
         </NavLink>
       </li>
       <li className="mr-4">
@@ -28,7 +28,7 @@ const NavBar = () => {
           to="/add-car"
           className="hover:text-[#FF4C30] transition-colors duration-300"
         >
-          Add Car
+          Add Car 
         </NavLink>
       </li>
       <li className="mr-4">
