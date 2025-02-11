@@ -89,13 +89,9 @@ const AvailableCar = () => {
     }
 
     if (sortOption === "dateNewest") {
-      searchResults.sort(
-        (a, b) => a.dailyRentalPrice - b.dailyRentalPrice
-      );
+      searchResults.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
     } else if (sortOption === "dateOldest") {
-      searchResults.sort(
-        (a, b) => b.dailyRentalPrice - a.dailyRentalPrice
-      );
+      searchResults.sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
     } else if (sortOption === "priceLowest") {
       searchResults.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
     } else if (sortOption === "priceHighest") {
@@ -135,14 +131,13 @@ const AvailableCar = () => {
 
           {/* Sort and View Mode */}
           <div className="flex items-center space-x-4">
-            <select 
-
+            <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
               className=" border-[#ff4c30] border   rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff4c30]"
             >
               <option value="">Sort By</option>
-           
+
               <option value="priceLowest">Price: Lowest First</option>
               <option value="priceHighest">Price: Highest First</option>
             </select>
@@ -186,6 +181,10 @@ const AvailableCar = () => {
         </div>
       ) : (
         <div className="text-center mt-16">
+          <div className="flex justify-center items-center py-16">
+            {/* <div className="spinner-border animate-spin inline-block w-12 h-12 border-4 border-t-transparent rounded-full"></div> */}
+            <span className="loading loading-ring loading-lg"></span>
+          </div>
           <h2 className="text-xl font-semibold">No cars available</h2>
           <p>Please check back later for available cars.</p>
         </div>

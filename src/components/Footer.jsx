@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className="bg-gray-900 text-white">
-      <footer className="footer items-center p-6 flex flex-wrap justify-between">
+      <footer className="footer w-11/12 mx-auto items-center p-6 flex flex-wrap justify-between">
         {/* Logo and Copyright */}
         <aside className="flex items-center space-x-3">
           <img
@@ -70,19 +71,14 @@ const Footer = () => {
         {/* Quick Links */}
         <ul className="flex flex-wrap space-x-6 mt-4 md:mt-0 text-sm">
           <li>
-            <a href="#" className="hover:text-[#ff4c30] transition-colors">
-              Terms of Service
-            </a>
+            <Link to="/" className="hover:text-[#ff4c30] transition-colors">
+              Home
+            </Link>
           </li>
           <li>
-            <a href="#" className="hover:text-[#ff4c30] transition-colors">
-              Privacy Policy
-            </a>
-          </li>
-          <li>
-            <a href="#" className="hover:text-[#ff4c30] transition-colors">
-              Contact Us
-            </a>
+            <Link href="#" className="hover:text-[#ff4c30] transition-colors">
+              Available Car
+            </Link>
           </li>
         </ul>
       </footer>

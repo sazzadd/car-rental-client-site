@@ -7,9 +7,9 @@ const MainLayouts = () => {
   return (
     <div className="overflow-x-hidden ">
       {/* Navbar */}
-      <section>
-        <NavBar></NavBar>
-      </section>
+
+      <NavBar></NavBar>
+
       {/* Outlet */}
       <Outlet></Outlet>
       {/* Footer */}

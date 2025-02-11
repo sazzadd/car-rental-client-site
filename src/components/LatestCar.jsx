@@ -1,8 +1,8 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CarCard from "./CarCard";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const LatestCar = () => {
   const [cars, setCars] = useState([]);
@@ -25,7 +25,7 @@ const LatestCar = () => {
   };
 
   return (
-    <div className="mx-auto w-10/12 py-12">
+    <div className="mx-auto w-12/12 py-12">
       <h2
         data-aos="zoom-in"
         className="relative text-center text-3xl md:text-4xl font-semibold text-gray-800 mb-12 pb-2"
@@ -35,7 +35,7 @@ const LatestCar = () => {
       </h2>
 
       {cars.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {cars.map((car) => (
             <div key={car._id} data-aos="fade-up">
               <CarCard car={car}></CarCard>

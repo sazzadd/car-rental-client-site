@@ -107,7 +107,7 @@ const CarDetails = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen py-10">
-      <div className="bg-white text-gray-800 p-6 rounded-lg shadow-xl flex flex-col md:flex-row max-w-5xl mx-auto">
+      <div className=" justify-center bg-gray-100 my-16 items-center text-gray-800 p-6 rounded-lg shadow-xl flex flex-col md:flex-row max-w-5xl mx-auto">
         {/* Left Section: Car Image */}
         <div
           className="w-full md:w-1/2 flex-shrink-0 transform transition-all duration-300 hover:scale-110 hover:duration-500 ease-in-out"

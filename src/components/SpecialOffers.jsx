@@ -2,16 +2,29 @@ import React from "react";
 
 const SpecialOffers = () => {
   const offers = [
-    { title: "15% Off Weekend Rentals", description: "Book now and save big on weekend trips!", buttonText: "Learn More" },
-    { title: "Luxury Cars at $99/Day", description: "This holiday season, drive in style!", buttonText: "Book Now" },
+    {
+      title: "15% Off Weekend Rentals",
+      description: "Book now and save big on weekend trips!",
+      buttonText: "Learn More",
+    },
+    {
+      title: "Luxury Cars at $99/Day",
+      description: "This holiday season, drive in style!",
+      buttonText: "Book Now",
+    },
   ];
 
   return (
     <section className="py-12 bg-gray-100">
       <div className="container mx-auto px-6 md:px-12">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+        <h2
+          data-aos="zoom-in"
+          className="relative text-center text-3xl md:text-4xl font-semibold text-gray-800 mb-12 pb-2"
+        >
           Special Offers
+          <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-1 w-20 bg-[#FF4C30] rounded-full"></span>
         </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {offers.map((offer, index) => (
             <div
@@ -23,11 +36,9 @@ const SpecialOffers = () => {
               <h3 className="text-2xl font-semibold text-gray-800">
                 {offer.title}
               </h3>
-              
+
               <p className="mt-2 text-gray-600">{offer.description}</p>
-              <button
-                className="mt-4 bg-[#FF4C30] text-white py-2 px-4 rounded-md shadow hover:bg-red-600"
-              >
+              <button className="mt-4 bg-[#FF4C30] text-white py-2 px-4 rounded-md shadow hover:bg-red-600">
                 {offer.buttonText}
               </button>
             </div>

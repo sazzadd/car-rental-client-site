@@ -1,6 +1,11 @@
 import { parse } from "date-fns";
 import React from "react";
-import { FaCarSide, FaCheckCircle, FaClock, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaCarSide,
+  FaCheckCircle,
+  FaClock,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
@@ -40,7 +45,7 @@ const CarCard = ({ car }) => {
   const timeAgo = `${hours} hours, ${minutes} minutes`;
 
   return (
-    <div className="max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden bg-white border border-gray-200 transform transition-transform duration-300 hover:scale-105">
+    <div className="max-w-sm mx-auto rounded-lg h-full shadow-lg overflow-hidden flex flex-col bg-white border border-gray-200 transform transition-transform duration-300 hover:scale-105">
       {/* Car Image with Price Badge */}
       <div className="relative">
         <img
@@ -54,10 +59,10 @@ const CarCard = ({ car }) => {
       </div>
 
       {/* Card Content */}
-      <div className="p-5">
+      <div className="p-5 flex-grow flex flex-col justify-between">
         {/* Availability */}
         <div className="flex items-center mb-2">
-          <div className="flex items-center text-sm mb-6">
+          <div className="flex items-center text-sm mb-2">
             <FaCheckCircle
               className={`inline-block mr-2 ${
                 availability ? "text-green-500" : "text-red-500"
@@ -77,7 +82,13 @@ const CarCard = ({ car }) => {
         <h2 className="text-xl font-semibold text-gray-800">{carModel}</h2>
 
         {/* Description */}
-        <p className="text-gray-500 text-sm mt-2">{description}</p>
+
+        <p className="text-gray-500 text-sm mt-2">
+          {" "}
+          {description.length > 100
+            ? description.slice(0, 100) + "..."
+            : description}
+        </p>
 
         {/* Location */}
         <div className="mt-4 flex items-center text-sm text-gray-600">
@@ -98,6 +109,7 @@ const CarCard = ({ car }) => {
         </div>
 
         {/* Button */}
+
         <div className="mt-5">
           <Link to={`/carDetails/${_id}`}>
             <button className="w-full bg-white text-black border border-black font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 hover:bg-[#FF4C30] hover:text-white">
