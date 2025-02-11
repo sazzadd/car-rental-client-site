@@ -3,6 +3,7 @@ import "aos/dist/aos.css"; // Import AOS styles
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaList, FaSearch, FaThLarge } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 import CarCard from "../components/CarCard";
 
 const ListCarCard = ({ car }) => {
