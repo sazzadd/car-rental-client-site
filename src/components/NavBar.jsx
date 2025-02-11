@@ -12,7 +12,7 @@ const NavBar = () => {
           to="/"
           className="hover:text-[#FF4C30] transition-colors duration-300"
         >
-          Home
+          Homeee
         </NavLink>
       </li>
       <li className="mr-4">

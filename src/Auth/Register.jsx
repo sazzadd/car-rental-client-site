@@ -12,6 +12,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  
+  
   const navigate = useNavigate();
   const { createNewUser, setUser, handleLogOut, updateUserProfile } =
     useContext(AuthContext);
