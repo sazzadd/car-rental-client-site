@@ -125,7 +125,7 @@ const MyPostedCar = () => {
   };
 
   return (
-    <div className="container px-6 mx-auto pt-12 min-h-screen">
+    <div className="container px-6 mt-16 mx-auto pt-12 min-h-screen">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-800">My Posted Cars</h2>
         <span className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-full shadow-md">
@@ -389,7 +389,6 @@ const MyPostedCar = () => {
           </div>
         </div>
       )}
-      
     </div>
   );
 };
