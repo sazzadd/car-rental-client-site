@@ -130,7 +130,7 @@ const MyBooking = () => {
     });
   };
 
-  const handleCancelReserve = async (bookingId) => {
+  const handleCancelReserve = async (book) => {
     Swal.fire({
       title: "Are you sure?",
       text: "Do you really want to cancel the booking?",
@@ -143,13 +143,16 @@ const MyBooking = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.put(
-            `https://server-site-gules.vercel.app/booked/cancel/${bookingId}`,
-            { bookingStatus: "cancel" }
+            `https://server-site-gules.vercel.app/booked/cancel/${book._id}`,
+            
+            { bookingStatus: "cancel", carId:book.carId }
+            
           );
+          console.log(book.carId)
           if (response.data.modifiedCount > 0) {
             setBooked((prev) =>
               prev.map((booking) =>
-                booking._id === bookingId
+                booking._id === book._id
                   ? { ...booking, status: "cancel" }
                   : booking
               )
@@ -209,7 +212,7 @@ const MyBooking = () => {
   const shouldHideButtons = (status) => status === "cancel";
   return (
     <div className="bg-gray-50 min-h-screen py-8">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto  mt-16 px-4">
         <h1 className="text-4xl font-extrabold text-[#FF4C30] text-center mb-8">
           <FaCar className="inline-block mr-2 text-5xl" /> My Bookings
         </h1>
@@ -312,7 +315,7 @@ const MyBooking = () => {
                             </button>
                             <button
                               className="bg-red-500 hover:bg-red-600 flex items-center text-white px-3 py-1 text-sm rounded-md shadow-md focus:outline-none transition-all"
-                              onClick={() => handleCancelReserve(book._id)}
+                              onClick={() => handleCancelReserve(book)}
                             >
                               <FaTrash className="text-base mr-2" />
                               Cancel

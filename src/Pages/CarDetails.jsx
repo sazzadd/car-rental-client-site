@@ -94,6 +94,9 @@ const CarDetails = () => {
         text: "You have successfully booked the car",
         icon: "success",
         confirmButtonText: "Cool",
+      })
+      .then(() => {
+        setIsModalOpen(false); 
       });
     } catch (err) {
       console.error(err);
